@@ -214,7 +214,7 @@ static long baikal_clk_round_rate(struct clk_hw *hw, unsigned long rate,
 	return res.a0;
 }
 
-const struct clk_ops be_clk_pll_ops = {
+static const struct clk_ops be_clk_pll_ops = {
 	.enable = baikal_clk_enable,
 	.disable = baikal_clk_disable,
 	.is_enabled = baikal_clk_is_enabled,
