@@ -329,8 +329,12 @@ static int __init baikal_clk_probe(struct device_node *node)
 			init_ch[i].ops = &be_clk_pll_ops;
 			init_ch[i].flags = CLK_IGNORE_UNUSED;
 
-			cmu_ch[index] = kmalloc(sizeof(struct baikal_clk_cmu),
+			cmu_ch[index] = kzalloc(sizeof(struct baikal_clk_cmu),
 						GFP_KERNEL);
+			if (!cmu_ch[index]) {
+				pr_err("%s: could not allocate baikal_clk_cmu structure\n", __func__);
+				return -ENOMEM;
+			}
 			cmu_ch[index]->name = clk_ch_name;
 			cmu_ch[index]->cmu_id = index;
 			cmu_ch[index]->parent = cmu->cmu_id;
